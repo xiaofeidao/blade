@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <bean class="com.blade.common.config.JpaDataSourceConfig" />
+
+
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="bladeDataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.blade.service.*.core.*.dao.po</value>
+            </list>
+        </property>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="false"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect"/>
+                <property name="database" value="MYSQL"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.physical_naming_strategy">org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy</prop>
+                <prop key="hibernate.implicit_naming_strategy">org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy</prop>
+                <prop key="hibernate.hbm2ddl.auto">none</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory"/>
+    </bean>
+    <tx:advice id="bladeAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="*delete*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Throwable"/>
+            <tx:method name="*insert*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Throwable" />
+            <tx:method name="*update*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Throwable" />
+            <tx:method name="*save*" propagation="REQUIRED" read-only="false"
+                       rollback-for="Throwable" />
+        </tx:attributes>
+    </tx:advice>
+
+    <aop:config>
+        <aop:pointcut id="alchemistPointcut"
+                      expression="execution(public * com.blade.service.*.core.*.*Service.*(..)) or execution(public * com.blade.business.*.core.*Service.*(..))"/>
+        <aop:advisor advice-ref="bladeAdvice" pointcut-ref="alchemistPointcut" />
+    </aop:config>
+</beans>
