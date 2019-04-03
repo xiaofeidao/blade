@@ -1,0 +1,15 @@
+.*
+!.gitignore
+!.git-hooks
+!.gitkeep
+!/**/.obelisk.yml
+*.iml
+**/src/main/resources/application.properties
+**/src/main/resources/log4j2.xml
+**/src/main/resources/logback.xml
+target/
+bin/
+!/**/file/
+/file/
+.idea/
+

@@ -29,6 +29,7 @@
         <module>service</module>
         <module>common</module>
         <module>bootstrap</module>
+        <module>web</module>
     </modules>
 
     <dependencyManagement>
@@ -44,6 +45,18 @@
                 <artifactId>user-core</artifactId>
                 <version>${blade.version}</version>
             </dependency>
+
+            <dependency>
+                <groupId>com.blade</groupId>
+                <artifactId>url-api</artifactId>
+                <version>${blade.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.blade</groupId>
+                <artifactId>url-core</artifactId>
+                <version>${blade.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.blade</groupId>
                 <artifactId>common</artifactId>

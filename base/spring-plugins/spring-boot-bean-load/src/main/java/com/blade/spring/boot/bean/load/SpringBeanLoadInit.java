@@ -1,5 +1,6 @@
 package com.blade.spring.boot.bean.load;
 
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
 
@@ -10,7 +11,11 @@ import org.springframework.context.annotation.ImportResource;
  */
 @ImportResource("classpath*:spring/spring-*.xml")
 @Configuration
-public class SpringBeanLoadInit {
+public class SpringBeanLoadInit implements InitializingBean{
 
 
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("");
+    }
 }

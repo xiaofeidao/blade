@@ -15,7 +15,7 @@
         <property name="dataSource" ref="bladeDataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>com.blade.service.*.core.*.dao.po</value>
+                <value>com.blade.service.*.core.dao.po</value>
             </list>
         </property>
         <property name="jpaVendorAdapter">
@@ -52,8 +52,8 @@
     </tx:advice>
 
     <aop:config>
-        <aop:pointcut id="alchemistPointcut"
+        <aop:pointcut id="bladePointcut"
                       expression="execution(public * com.blade.service.*.core.*.*Service.*(..)) or execution(public * com.blade.business.*.core.*Service.*(..))"/>
-        <aop:advisor advice-ref="bladeAdvice" pointcut-ref="alchemistPointcut" />
+        <aop:advisor advice-ref="bladeAdvice" pointcut-ref="bladePointcut" />
     </aop:config>
 </beans>

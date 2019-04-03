@@ -14,7 +14,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @Configuration
 @AutoConfigureBefore({DataSourceAutoConfiguration.class})
 @EnableJpaRepositories(
-        basePackages = {"com.blade.service.*.core.*.dao.repository"})
+        basePackages = {"com.blade.service.*.core.dao.repository"})
 public class JpaDataSourceConfig {
 
 

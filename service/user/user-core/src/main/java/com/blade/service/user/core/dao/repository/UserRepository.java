@@ -9,4 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @date 2019/4/1
  */
 public interface UserRepository extends JpaRepository<User, Long>{
+
+    User findByUid(String uid);
 }

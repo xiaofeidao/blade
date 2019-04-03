@@ -16,6 +16,7 @@
         <module>spring-plugins</module>
         <module>data-source</module>
         <module>utils</module>
+        <module>http</module>
     </modules>
 
 </project>
